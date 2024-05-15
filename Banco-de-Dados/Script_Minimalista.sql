@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS endereco (
     numero VARCHAR(20),
     complemento VARCHAR(90),
     fkEmpresa INT,
+    atual BOOLEAN,
     FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
