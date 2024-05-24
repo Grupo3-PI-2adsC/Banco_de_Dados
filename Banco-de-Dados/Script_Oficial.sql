@@ -42,7 +42,7 @@ insert into usuario values
 
 CREATE TABLE IF NOT EXISTS maquina (
     idMaquina INT AUTO_INCREMENT PRIMARY KEY,
-    hostName VARCHAR(45),
+    hostName VARCHAR(45) unique,
     ativo Boolean,
     arquitetura int,	
     validado boolean,
