@@ -19,10 +19,10 @@ CREATE TABLE IF NOT EXISTS endereco (
     bairro VARCHAR(60),
     cidade VARCHAR(60),
     unidadeFederativa VARCHAR(60),
-    numero VARCHAR(20),
+    numero int,
     complemento VARCHAR(90),
-    fkEmpresa INT,
     atual BOOLEAN,
+    fkEmpresa INT,
     FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
@@ -42,7 +42,7 @@ insert into usuario values
 
 CREATE TABLE IF NOT EXISTS maquina (
     idMaquina INT AUTO_INCREMENT PRIMARY KEY,
-    hostName VARCHAR(45),
+    hostName VARCHAR(45) unique,
     ativo Boolean,
     arquitetura int,	
     validado boolean,
@@ -74,31 +74,33 @@ INSERT INTO tipoComponente VALUES
 	(6, 'Volume  ', 'Gib', null),
 	(7, 'Serviços   ', '%', null);
 
-CREATE TABLE IF NOT EXISTS componentes (
+CREATE TABLE IF NOT EXISTS dadosFixos ( -- componentes
     idComponente INT NOT NULL,
-    fkMaquina INT,
-    fkTipoComponente INT,
     nomeCampo VARCHAR(45),
     valorCampo VARCHAR(150),
 	descrição varchar(200),
-    PRIMARY KEY (idComponente, fkMaquina), -- Chave primária composta
+    fkMaquina INT,
+    fkTipoComponente INT,
+    PRIMARY KEY (idComponente, fkMaquina, fkTipoComponente), -- Chave primária composta
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina),
     FOREIGN KEY (fkTipoComponente) REFERENCES tipoComponente(idTipoComponente)
 );
 
 
 CREATE TABLE IF NOT EXISTS dadosTempoReal (
-    idDadosTempoReal INT AUTO_INCREMENT PRIMARY KEY,
-    fkMaquina INT,
-    fkTipoComponente INT,
+    idDadosTempoReal INT AUTO_INCREMENT,
     dataHora DATETIME,
     nomeCampo VARCHAR(45),
     valorCampo VARCHAR(150),
+    fkComponente int,
+    fkMaquina INT,
+    fkTipoComponente INT,
     -- unidadeMedida VARCHAR(150),
+    primary key  (idDadosTempoReal, fkComponente, fkMaquina, fkTipoComponente),
+    FOREIGN KEY (fkComponente) REFERENCES dadosFixos(idComponente),
     FOREIGN KEY (fkTipoComponente) REFERENCES tipoComponente(idTipoComponente),
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
 );
-
 
 SELECT * FROM empresa;
 SELECT * FROM endereco;
@@ -106,5 +108,4 @@ SELECT * FROM usuario;
 SELECT * FROM maquina;
 SELECT * FROM tipoComponente;
 SELECT * FROM dadosTempoReal;
-SELECT * FROM componentes;
-SELECT * FROM componentes;
+SELECT * FROM dadosFixos;
