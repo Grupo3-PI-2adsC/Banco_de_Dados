@@ -40,6 +40,17 @@ CREATE TABLE IF NOT EXISTS usuario (
 -- insert into usuario values
 	-- (null, 'recepção', 'Raimunda', 'raimunda@netmet.com' ,'1234', 1);
 
+CREATE TABLE IF NOT EXISTS manuais (
+    idManual INT AUTO_INCREMENT PRIMARY KEY,
+    tituloManual VARCHAR(45),
+    descricaoManual VARCHAR(100),
+    usuárioUltimaAlteracao VARCHAR(100) UNIQUE,
+    dtUltimaAlteracao DATE,
+    fkUsuarioCriador INT,
+    dtCriacao DATE,
+    FOREIGN KEY (fkUsuarioCriador) REFERENCES usuario(idUsuario)
+);
+
 CREATE TABLE IF NOT EXISTS maquina (
     idMaquina INT AUTO_INCREMENT PRIMARY KEY,
     hostName VARCHAR(45) unique,
