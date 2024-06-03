@@ -134,8 +134,6 @@ CREATE TABLE IF NOT EXISTS variaveisRede (
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
 );
 
-describe fixosRede;
-
 -- SELECT * FROM empresa;
 -- SELECT * FROM endereco;	
 -- SELECT * FROM usuario;
