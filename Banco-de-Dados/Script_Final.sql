@@ -1,4 +1,4 @@
--- DROP DATABASE IF EXISTS netmed;
+DROP DATABASE IF EXISTS netmed;
 CREATE DATABASE IF NOT EXISTS netmed;
 USE netmed;
 
@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS empresa (
     apelido VARCHAR(60),
     cnpj CHAR(14)
 );
--- insert into empresa values
-	-- (null, 'Arcos Dourados', 'Fast Food', 'EME GIGANTE', '12345678901234');
+insert into empresa values
+	(null, 'Arcos Dourados', 'Fast Food', 'EME GIGANTE', '12345678901234');
 
 CREATE TABLE IF NOT EXISTS endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
--- insert into usuario values
-	-- (null, 'recepção', 'Raimunda', 'raimunda@netmet.com' ,'1234', 1);
+ insert into usuario values
+	 (null, 'recepção', 'Raimunda', 'raimunda@netmet.com' ,'1234', 1);
 
 CREATE TABLE IF NOT EXISTS manuais (
     idManual INT AUTO_INCREMENT PRIMARY KEY,
@@ -86,7 +86,7 @@ INSERT INTO tipoComponente VALUES
 	(7, 'Serviços   ', '%', null);
 
 CREATE TABLE IF NOT EXISTS dadosFixos (
-    idDadosFixos INT NOT NULL,
+    idDadosFixos INT NOT NULL auto_increment,
     fkMaquina INT,
     fkTipoComponente INT,
     nomeCampo VARCHAR(45),
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS fixosRede (
 	idFixosRede INT AUTO_INCREMENT,
     fkMaquina INT,
     nomeCampo VARCHAR(45),
-    valorCampo VARCHAR(45),
+    valorCampo VARCHAR(255),
     PRIMARY KEY (idFixosRede, fkMaquina),
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
 );
@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS variaveisRede (
 	idVariaveisRede INT AUTO_INCREMENT,
     fkFixosRede INT,
     fkMaquina INT,
+    dataHora DATETIME,
     nomeCampo VARCHAR(45),
     valorCampo VARCHAR(45),
     PRIMARY KEY (idVariaveisRede, fkFixosRede, fkMaquina),
@@ -133,13 +134,14 @@ CREATE TABLE IF NOT EXISTS variaveisRede (
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
 );
 
+describe fixosRede;
 
 -- SELECT * FROM empresa;
--- SELECT * FROM endereco;
+-- SELECT * FROM endereco;	
 -- SELECT * FROM usuario;
 -- SELECT * FROM maquina;
 -- SELECT * FROM tipoComponente;
 -- SELECT * FROM dadosTempoReal;
--- SELECT * FROM dadosFixos;
+-- SELECT * FROM dadosFixos order by 3;
 -- SELECT * FROM fixosRede;
 -- SELECT * FROM variaveisRede;
