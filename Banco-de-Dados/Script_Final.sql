@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS netmed;
 CREATE DATABASE IF NOT EXISTS netmed;
 USE netmed;
-
+	
 CREATE TABLE IF NOT EXISTS empresa (
     idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
     nomeFantasia VARCHAR(100),
@@ -33,12 +33,13 @@ CREATE TABLE IF NOT EXISTS usuario (
     nome VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     senha VARCHAR(30),
+    ativo Boolean,
     fkEmpresa INT,
     FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
  insert into usuario values
-	 (null, 'recepção', 'Raimunda', 'raimunda@netmet.com' ,'1234', 1);
+	 (null, 'recepção', 'Raimunda', 'raimunda@netmet.com' ,'1234', 1, 1);
 
 CREATE TABLE IF NOT EXISTS manuais (
     idManual INT AUTO_INCREMENT PRIMARY KEY,
@@ -133,7 +134,11 @@ CREATE TABLE IF NOT EXISTS variaveisRede (
     FOREIGN KEY (fkFixosRede) REFERENCES fixosRede(idFixosRede),
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
 );
-
+-- insert into maquina values
+-- 	(null, 'sla1', 1, 64, 0, 1);
+--     
+-- delete from maquina where idMaquina = 2
+    
 -- SELECT * FROM empresa;
 -- SELECT * FROM endereco;	
 -- SELECT * FROM usuario;
