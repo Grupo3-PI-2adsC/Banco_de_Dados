@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS dadosFixos (
     fkTipoComponente INT,
     nomeCampo VARCHAR(45),
     valorCampo VARCHAR(150),
-	descrição varchar(200),
+	descricao varchar(200),
     PRIMARY KEY (idDadosFixos, fkMaquina, fkTipoComponente), -- Chave primária composta
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina),
     FOREIGN KEY (fkTipoComponente) REFERENCES tipoComponente(idTipoComponente)
@@ -134,11 +134,10 @@ CREATE TABLE IF NOT EXISTS variaveisRede (
     FOREIGN KEY (fkFixosRede) REFERENCES fixosRede(idFixosRede),
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
 );
--- insert into maquina values
--- 	(null, 'sla1', 1, 64, 0, 1);
---     
+-- use netmed
 -- delete from maquina where idMaquina = 2
-    
+-- select idDadosFixos from dadosFixos where fkMaquina = 1 and fkTipoComponente = 2 and nomeCampo = 'total de memoria do computador'
+-- truncate table dadosTempoReal;
 -- SELECT * FROM empresa;
 -- SELECT * FROM endereco;	
 -- SELECT * FROM usuario;
