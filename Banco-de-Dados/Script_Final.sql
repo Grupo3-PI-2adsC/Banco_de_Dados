@@ -2,6 +2,10 @@ DROP DATABASE IF EXISTS netmed;
 CREATE DATABASE IF NOT EXISTS netmed;
 USE netmed;
 	
+-- 		CREATE USER 'Netmed'@'localhost' IDENTIFIED BY 'Netmed#1@@';
+--  		GRANT ALL PRIVILEGES ON * . * TO 'Netmed'@'localhost';
+--  		FLUSH PRIVILEGES;
+
 CREATE TABLE IF NOT EXISTS empresa (
     idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
     nomeFantasia VARCHAR(100),
@@ -53,7 +57,7 @@ CREATE TABLE IF NOT EXISTS manuais (
 );
 
 CREATE TABLE IF NOT EXISTS maquina (
-    idMaquina INT AUTO_INCREMENT PRIMARY KEY,
+    idMaquina varchar(45) PRIMARY KEY,
     hostName VARCHAR(45) unique,
     ativo Boolean,
     arquitetura int,	
@@ -66,7 +70,7 @@ CREATE TABLE IF NOT EXISTS servicos(
 	PID int,
     nome VARCHAR(50),
     estado boolean,
-    fkMaquina int,
+    fkMaquina varchar(45) ,
     foreign key (fkMaquina) references maquina(idMaquina),
     primary key (PID, fkMaquina)
 );
@@ -88,7 +92,7 @@ INSERT INTO tipoComponente VALUES
 
 CREATE TABLE IF NOT EXISTS dadosFixos (
     idDadosFixos INT NOT NULL auto_increment,
-    fkMaquina INT,
+    fkMaquina varchar(45) ,
     fkTipoComponente INT,
     nomeCampo VARCHAR(45),
     valorCampo VARCHAR(150),
@@ -102,7 +106,7 @@ CREATE TABLE IF NOT EXISTS dadosFixos (
 CREATE TABLE IF NOT EXISTS dadosTempoReal (
     idDadosTempoReal INT AUTO_INCREMENT,
     fkDadosFixos INT,
-    fkMaquina INT,
+    fkMaquina varchar(45) ,
     fkTipoComponente INT,
     dataHora DATETIME,
     nomeCampo VARCHAR(45),
@@ -116,7 +120,7 @@ CREATE TABLE IF NOT EXISTS dadosTempoReal (
 
 CREATE TABLE IF NOT EXISTS fixosRede (
 	idFixosRede INT AUTO_INCREMENT,
-    fkMaquina INT,
+    fkMaquina varchar(45) ,
     nomeCampo VARCHAR(45),
     valorCampo VARCHAR(255),
     PRIMARY KEY (idFixosRede, fkMaquina),
@@ -126,7 +130,7 @@ CREATE TABLE IF NOT EXISTS fixosRede (
 CREATE TABLE IF NOT EXISTS variaveisRede (
 	idVariaveisRede INT AUTO_INCREMENT,
     fkFixosRede INT,
-    fkMaquina INT,
+    fkMaquina varchar(45) ,
     dataHora DATETIME,
     nomeCampo VARCHAR(45),
     valorCampo VARCHAR(45),
@@ -134,7 +138,9 @@ CREATE TABLE IF NOT EXISTS variaveisRede (
     FOREIGN KEY (fkFixosRede) REFERENCES fixosRede(idFixosRede),
     FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
 );
+SELECT * FROM usuario WHERE email = 'raimunda@netmet.com' AND senha = '1234';
 -- use netmed
+insert into maquina values ('vmNaFe', 'sla', 1, 64, 0, 1);
 -- delete from maquina where idMaquina = 2
 -- select idDadosFixos from dadosFixos where fkMaquina = 1 and fkTipoComponente = 2 and nomeCampo = 'total de memoria do computador'
 -- truncate table dadosTempoReal;
@@ -147,3 +153,5 @@ CREATE TABLE IF NOT EXISTS variaveisRede (
 -- SELECT * FROM dadosFixos order by 3;
 -- SELECT * FROM fixosRede;
 -- SELECT * FROM variaveisRede;
+
+select * from maquina where hostName = 'matteus-Nitro-AN515-57';
