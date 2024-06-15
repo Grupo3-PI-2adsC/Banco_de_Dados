@@ -1,3 +1,7 @@
+USE master ;  
+GO  
+DROP DATABASE netmed ;  
+GO  
 
 -- Cria o banco de dados se ele não existir
 IF DB_ID('netmed') IS NULL
@@ -77,7 +81,7 @@ GO
 IF OBJECT_ID('maquina', 'U') IS NULL
 BEGIN
     CREATE TABLE maquina (
-        idMaquina INT IDENTITY(1,1) PRIMARY KEY,
+        idMaquina VARCHAR(45) PRIMARY KEY,
         hostName VARCHAR(45) UNIQUE,
         ativo BIT,
         arquitetura INT,
@@ -95,7 +99,7 @@ BEGIN
         PID INT,
         nome VARCHAR(50),
         estado BIT,
-        fkMaquina INT,
+        fkMaquina VARCHAR(45),
         PRIMARY KEY (PID, fkMaquina),
         FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
     );
@@ -164,7 +168,7 @@ IF OBJECT_ID('fixosRede', 'U') IS NULL
 BEGIN
     CREATE TABLE fixosRede (
         idFixosRede INT IDENTITY(1,1) PRIMARY KEY,
-        fkMaquina INT,
+        fkMaquina VARCHAR(45),
         nomeCampo VARCHAR(45),
         valorCampo VARCHAR(255),
         FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
@@ -177,7 +181,7 @@ IF OBJECT_ID('dadosFixos', 'U') IS NULL
 BEGIN
     CREATE TABLE dadosFixos (
         idDadosFixos INT IDENTITY(1,1) PRIMARY KEY,
-        fkMaquina INT,
+        fkMaquina VARCHAR(45),
         fkTipoComponente INT,
         nomeCampo VARCHAR(45),
         valorCampo VARCHAR(150),
@@ -194,7 +198,7 @@ BEGIN
     CREATE TABLE variaveisRede (
         idVariaveisRede INT IDENTITY(1,1) PRIMARY KEY,
         fkFixosRede INT,
-        fkMaquina INT,
+        fkMaquina VARCHAR(45),
         dataHora DATETIME,
         nomeCampo VARCHAR(45),
         valorCampo VARCHAR(45),
@@ -204,13 +208,29 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('manuais', 'U') IS NULL
+BEGIN
+    CREATE TABLE manuais (
+        idManual INT IDENTITY(1,1) PRIMARY KEY,
+        tituloManual VARCHAR(45),
+        descricaoManual VARCHAR(100),
+        usuarioUltimaAlteracao int,
+        dtUltimaAlteracao DATETIME,
+		fkUsuarioCriador INT,
+        dtCriacao DATETIME,
+        FOREIGN KEY (fkUsuarioCriador) REFERENCES usuario(idUsuario),
+    );
+END
+GO
+
+
 -- Criação da tabela dadosTempoReal
 IF OBJECT_ID('dadosTempoReal', 'U') IS NULL
 BEGIN
     CREATE TABLE dadosTempoReal (
         idDadosTempoReal INT IDENTITY(1,1) PRIMARY KEY,
         fkDadosFixos INT,
-        fkMaquina INT,
+        fkMaquina VARCHAR(45),
         fkTipoComponente INT,
         dataHora DATETIME,
         nomeCampo VARCHAR(45),
@@ -221,7 +241,7 @@ BEGIN
     );
 END
 GO
-
+select * from maquina where idMaquina = 'matteus-Nitro-AN515-57';
 
 
 
@@ -245,3 +265,4 @@ BEGIN
         ('recepção', 'Raimunda', 'raimunda@netmet.com', '1234', 1, 1);
 END
 GO
+
