@@ -154,4 +154,5 @@ insert into maquina values ('vmNaFe', 'sla', 1, 64, 0, 1);
 -- SELECT * FROM fixosRede;
 -- SELECT * FROM variaveisRede;
 
-select * from maquina where hostName = 'matteus-Nitro-AN515-57';
+select * from dadosFixos where fkMaquina = 'matteus-Nitro-AN515-57';
+select idDadosFixos from dadosFixos where fkMaquina = 'matteus-Nitro-AN515-57' and fkTipoComponente = 2 and nomeCampo = 'total de memoria do computador'
