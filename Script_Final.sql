@@ -38,7 +38,7 @@ insert into empresa values
  insert into usuario values
 	 (null, 'representante', 'Cleiton Olivaras', 'cleiton@netmed.com' ,'Clei@123', 2, 1);
  insert into usuario values
-	 (null, 'representante', 'Alberto Maverique', 'alberto@netmet.com' ,'Albe@123', 3, 1);	
+	 (null, 'representante', 'Alberto Maverique', 'alberto@netmed.com' ,'Albe@123', 3, 1);	
 
 CREATE TABLE IF NOT EXISTS endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
