@@ -13,8 +13,32 @@ CREATE TABLE IF NOT EXISTS empresa (
     apelido VARCHAR(60),
     cnpj CHAR(14)
 );
+
+CREATE TABLE IF NOT EXISTS usuario (
+    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    tipoUsuario VARCHAR(45),
+    nome VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    senha VARCHAR(30),
+    ativo Boolean,
+    fkEmpresa INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+);
+
 insert into empresa values
-	(null, 'Arcos Dourados', 'Fast Food', 'EME GIGANTE', '12345678901234');
+	(null, 'Hospital São Paulo', 'CENTRO MEDICO SÃO PAULO SC LTDA', 'Hospital SP', '12345678901234');
+insert into empresa values
+	(null, 'CENTRO HOSPITALAR UNIMED', 'UNIMED DE JOINVILLE COOPERATIVA DE TRABALHOS MEDICOS', 'UNIMED', '09876543211234');
+insert into empresa values
+	(null, 'HOSPITAL SAO JOSE', 'ASSOCIACAO HOSPITALAR SAO JOSE DE JARAGUA DO SUL', 'SAO JOSE', '09876543210987');	 
+	
+	
+ insert into usuario values
+	 (null, 'representante', 'Raimunda Neto', 'raimunda@netmed.com' ,'Raim@123', 1, 1);
+ insert into usuario values
+	 (null, 'representante', 'Cleiton Olivaras', 'cleiton@netmed.com' ,'Clei@123', 2, 1);
+ insert into usuario values
+	 (null, 'representante', 'Alberto Maverique', 'alberto@netmet.com' ,'Albe@123', 3, 1);	
 
 CREATE TABLE IF NOT EXISTS endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,20 +54,6 @@ CREATE TABLE IF NOT EXISTS endereco (
     FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
-
-CREATE TABLE IF NOT EXISTS usuario (
-    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
-    tipoUsuario VARCHAR(45),
-    nome VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    senha VARCHAR(30),
-    ativo Boolean,
-    fkEmpresa INT,
-    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
-);
-
- insert into usuario values
-	 (null, 'recepção', 'Raimunda', 'raimunda@netmet.com' ,'1234', 1, 1);
 
 CREATE TABLE IF NOT EXISTS manuais (
     idManual INT AUTO_INCREMENT PRIMARY KEY,
